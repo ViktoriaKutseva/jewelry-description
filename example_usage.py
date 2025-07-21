@@ -5,21 +5,42 @@ from jewelry_cost_calculator import (
     Material, Consumable, WorkTime, JewelryCostInput, calculate_jewelry_cost
 )
 
-def generate_instagram_description(jewelry_type, materials, stones, style, features, photo_path):
-    # Собираем строку материалов
+def generate_instagram_description(jewelry_type, materials, stones, style, features, photo_path, size, start_price):
     mat_str = ', '.join([m.name for m in materials if 'медь' in m.name.lower() or 'латунь' in m.name.lower() or 'нейзильбер' in m.name.lower()])
     stone_str = ', '.join([m.name for m in stones])
-    desc = f"{jewelry_type.capitalize()} ручной работы"
+    # RU
+    ru_desc = f"🌿 {jewelry_type.capitalize()}"
+    ru_desc += f"\n\n"
+    ru_desc += f"{jewelry_type.capitalize()} — смелый акцент и магия линий, вдохновлённая силой природы и мистикой. "
     if mat_str:
-        desc += f" из {mat_str}"
+        ru_desc += f"Материалы: {mat_str}. "
     if stone_str:
-        desc += f" с натуральными камнями: {stone_str}"
+        ru_desc += f"Камни: {stone_str}. "
     if style:
-        desc += f". Стиль: {style}"
+        ru_desc += f"Стиль: {style}. "
     if features:
-        desc += f". Особенности: {features}"
-    desc += ".\n\nКаждое изделие уникально, как и вы ✨\n"
-    desc += "#украшения #ручнаяработа #handmade #подарок #уникально #jewelry"
+        ru_desc += f"Особенности: {features}. "
+    ru_desc += "\nКаждая деталь выполнена вручную, с вниманием к текстуре и свету.\n"
+    ru_desc += f"\n📐 Размер: {size}"
+    ru_desc += f"\n💰 Цена: {start_price:,}₸".replace(",", " ")
+    ru_desc += "\n\nВ наличии — пишите в директ, если тронуло ваше сердечко 💌\n"
+    # EN
+    en_desc = f"🌲 {jewelry_type.capitalize()} (Ear cuff / Ring / Brooch / etc.)\n\n"
+    en_desc += f"Inspired by the power of nature and a touch of mystery. "
+    if mat_str:
+        en_desc += f"Materials: {mat_str}. "
+    if stone_str:
+        en_desc += f"Stones: {stone_str}. "
+    if style:
+        en_desc += f"Style: {style}. "
+    if features:
+        en_desc += f"Features: {features}. "
+    en_desc += "\nEach detail is handcrafted with care for texture and light.\n"
+    en_desc += f"\n📐 Size: {size}"
+    en_desc += f"\n💰 Price: {start_price:,}₸".replace(",", " ")
+    en_desc += "\n\nThis one-of-a-kind piece is available — message me if it speaks to you 💌\n"
+    hashtags = "#украшенияручнойработы #авторскиеукрашения #ручнаяработа #медь #кафф #кольцо #брошь #жемчуг #стиль #магия #handmadejewelry #earcuff #copperjewelry #baroquepearl #uniquejewelry #slowmade #natureinspired #giftideas #madeinkazakhstan #authorjewelry #jewelry #artisanjewelry #oneofakind #naturejewelry #craftwithlove #exclusivejewelry"
+    desc = f"{ru_desc}\n---\n\n{en_desc}\n🧷 Хэштеги / Hashtags:\n{hashtags}"
     if photo_path:
         desc += f"\nФото: {photo_path}"
     return desc
@@ -92,6 +113,7 @@ while True:
 
 # Вводим параметры для описания
 jewelry_type = input("\nТип изделия (например, браслет, кольцо, серьги): ").strip()
+size = input("Размер изделия (например, 3,5 см или 18 мм): ").strip()
 style = input("Стиль/настроение (например, минимализм, бохо, винтаж): ").strip()
 features = input("Особенности/для кого (например, подарок, женский, мужской): ").strip()
 photo_path = input("Путь к фото (или оставьте пустым): ").strip()
@@ -129,7 +151,18 @@ print(f"\n{result.price_comment}")
 
 # Генерация описания для Instagram
 print("\n---\nОписание для Instagram:\n")
-desc = generate_instagram_description(jewelry_type, selected, stones, style, features, photo_path)
+# Получаем начальную цену (×1.5)
+start_price = None
+for label, price in result.recommended_prices.items():
+    if '1.5' in label or 'начал' in label.lower():
+        start_price = int(price)
+        break
+if start_price is None:
+    start_price = int(result.total_cost * 1.5)
+
+desc = generate_instagram_description(
+    jewelry_type, selected, stones, style, features, photo_path, size, start_price
+)
 print(desc)
 
 # Сохраняем всё в .md-файл
