@@ -3,13 +3,6 @@ __pycache__/
 *.py[codz]
 *$py.class
 
-# Python artifacts
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.so
-
 # C extensions
 *.so
 
@@ -151,16 +144,6 @@ ENV/
 env.bak/
 venv.bak/
 
-
-# uv cache
-.uv/
-
-# Test and coverage outputs
-.coverage
-htmlcov/
-.cache/
-.pytest_cache/
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -222,42 +205,3 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
-# Ruff/mypy cache
-.mypy_cache/
-ruff_cache/
-
-# IDE/editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
-
-# Exported/temporary files
-*.md~
-*.bak
-
-# Node artifacts (if any frontend build tools are used)
-node_modules/
-npm-debug.log*
-
-# Ignore secrets/config (if any)
-.env.local
-.env.*
-
-# Misc
-*.tmp
-
-.rules/
