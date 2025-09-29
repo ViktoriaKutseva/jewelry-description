@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    ports:
+      - "8000:8000"
+    environment:
+      - JEWELRY_ENVIRONMENT=development
+      - JEWELRY_DEBUG=true
+      - JEWELRY_WEB_HOST=0.0.0.0
+      - JEWELRY_WEB_PORT=8000
+    volumes:
+      # Mount source code for development (optional - remove for production-like setup)
+      - ./src:/app/src:ro
+      - ./static:/app/static:ro
+      - ./templates:/app/templates:ro
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  db:
+    image: sqlite3:latest
+    volumes:
+      - db_data:/app/data
+    command: ["sqlite3", "/app/data/jewelry.db", ".read /dev/null"]
+    healthcheck:
+      test: ["CMD", "sqlite3", "/app/data/jewelry.db", "SELECT 1;"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Optional: Add a reverse proxy for production-like setup
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  db_data:
+
+networks:
+  default:
+    name: jewelry_network

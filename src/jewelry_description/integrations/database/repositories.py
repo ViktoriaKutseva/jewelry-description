@@ -1,17 +1,21 @@
 from typing import List, Optional
 import pandas as pd
 import os
+from loguru import logger
 from ...models.entities import Material
 from ...models.exceptions import InvalidMaterialDataError
-from ...business.interfaces import MaterialRepository
+from ...business.interfaces import IMaterialRepository
 
 
-class CsvMaterialRepository(MaterialRepository):
+class CsvMaterialRepository(IMaterialRepository):
     """Implementation of MaterialRepository using CSV files."""
 
-    def load_materials_from_csv(self, csv_path: str = "info.csv") -> List[Material]:
+    def load_materials_from_csv(self, csv_path: str = "old_data/info.csv") -> List[Material]:
         """Load materials from CSV file."""
+        logger.debug("Loading materials from CSV", csv_path=csv_path)
+
         if not os.path.exists(csv_path):
+            logger.error("CSV file not found", csv_path=csv_path)
             raise FileNotFoundError(f"File {csv_path} not found.")
 
         try:
@@ -33,23 +37,33 @@ class CsvMaterialRepository(MaterialRepository):
                 materials.append(
                     Material(name=name, unit_price=unit_price, quantity=0, unit=unit)
                 )
+
+            logger.info("Successfully loaded materials from CSV", count=len(materials), csv_path=csv_path)
             return materials
         except Exception as e:
+            logger.error("Failed to load materials from CSV", error=str(e), csv_path=csv_path)
             raise InvalidMaterialDataError(
                 f"Error loading materials from CSV: {e}"
             ) from e
 
     def find_material_by_name(self, name: str) -> Optional[Material]:
         """Find material by name (case-insensitive partial match)."""
+        logger.debug("Searching for material by name", search_name=name)
+
         materials = self.load_materials_from_csv()
         name = name.lower().strip()
         for material in materials:
             if name in material.name.lower():
+                logger.debug("Material found", material_name=material.name, search_name=name)
                 return material
+
+        logger.debug("Material not found", search_name=name)
         return None
 
-    def get_filtered_materials(self, csv_path: str = "info.csv") -> List[Material]:
+    def get_filtered_materials(self, csv_path: str = "old_data/info.csv") -> List[Material]:
         """Return filtered list of materials for common use."""
+        logger.debug("Filtering materials for common use", csv_path=csv_path)
+
         try:
             df = pd.read_csv(csv_path)
             result = []
@@ -138,6 +152,8 @@ class CsvMaterialRepository(MaterialRepository):
                         )
                     )
 
+            logger.info("Successfully filtered materials", count=len(result), csv_path=csv_path)
             return result
         except Exception as e:
+            logger.error("Failed to filter materials", error=str(e), csv_path=csv_path)
             raise InvalidMaterialDataError(f"Error filtering materials: {e}") from e

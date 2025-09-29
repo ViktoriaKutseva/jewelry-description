@@ -1,6 +1,7 @@
 ---
 applyTo: '**'
 ---
+
 # Document Editing Rules
 
 1. Maintain document style and structure — use existing sections and formatting.

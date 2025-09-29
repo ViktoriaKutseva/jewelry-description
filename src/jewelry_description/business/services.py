@@ -1,8 +1,10 @@
-from ..models.entities import JewelryCostInput, JewelryCostResult
+from typing import List
+from ..models.entities import JewelryCostInput, JewelryCostResult, Material
 from ..models.exceptions import CalculationError
+from .interfaces import IJewelryCostCalculator, IMaterialRepository, IDescriptionGenerator
 
 
-class JewelryCostCalculatorService:
+class JewelryCostCalculatorService(IJewelryCostCalculator):
     """Implementation of JewelryCostCalculator."""
 
     def calculate_cost(self, data: JewelryCostInput) -> JewelryCostResult:
@@ -77,3 +79,37 @@ class JewelryCostCalculatorService:
 
         except Exception as e:
             raise CalculationError(f"Error calculating jewelry cost: {e}") from e
+
+
+class WebJewelryCostCalculatorService(IJewelryCostCalculator):
+    """Web-specific jewelry cost calculator with enhanced features."""
+
+    def __init__(self, material_repo: IMaterialRepository):
+        self._material_repo = material_repo
+
+    def calculate_cost(self, data: JewelryCostInput) -> JewelryCostResult:
+        """Calculate jewelry cost with enhanced web features."""
+        # For now, delegate to the base implementation
+        # In the future, this could include web-specific logic like
+        # material validation against repository, caching, etc.
+        base_calculator = JewelryCostCalculatorService()
+        return base_calculator.calculate_cost(data)
+
+
+class JewelryDescriptionGeneratorService(IDescriptionGenerator):
+    """Service for generating jewelry descriptions."""
+
+    def generate_description(self, jewelry_type: str, materials: List[Material]) -> str:
+        """Generate a mystical jewelry description."""
+        # Basic implementation - can be enhanced later
+        material_names = [m.name for m in materials]
+        materials_text = ", ".join(material_names)
+
+        descriptions = {
+            "ring": f"Кольцо из {materials_text} - символ вечной любви и гармонии.",
+            "necklace": f"Кулон из {materials_text} - талисман защиты и мудрости.",
+            "bracelet": f"Браслет из {materials_text} - оберег силы и процветания.",
+            "earrings": f"Серьги из {materials_text} - украшение грации и элегантности.",
+        }
+
+        return descriptions.get(jewelry_type.lower(), f"Украшение из {materials_text} - произведение искусства.")

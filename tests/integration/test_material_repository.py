@@ -10,7 +10,7 @@ class TestCsvMaterialRepository:
     def test_load_materials_from_csv(self):
         """Test loading materials from CSV file."""
         repo = CsvMaterialRepository()
-        materials = repo.load_materials_from_csv("info.csv")
+        materials = repo.load_materials_from_csv("old_data/info.csv")
 
         assert len(materials) > 0
         assert all(isinstance(mat, Material) for mat in materials)
@@ -48,7 +48,7 @@ class TestCsvMaterialRepository:
     def test_get_filtered_materials(self):
         """Test getting filtered materials."""
         repo = CsvMaterialRepository()
-        filtered = repo.get_filtered_materials("info.csv")
+        filtered = repo.get_filtered_materials("old_data/info.csv")
 
         assert len(filtered) > 0
         assert all(isinstance(mat, Material) for mat in filtered)
@@ -76,11 +76,11 @@ class TestCsvMaterialRepository:
         assert hasattr(repo, "get_filtered_materials")
 
         # Test method signatures by calling them
-        materials = repo.load_materials_from_csv("info.csv")
+        materials = repo.load_materials_from_csv("old_data/info.csv")
         assert isinstance(materials, list)
 
         found = repo.find_material_by_name("test")
         assert found is None or isinstance(found, Material)
 
-        filtered = repo.get_filtered_materials("info.csv")
+        filtered = repo.get_filtered_materials("old_data/info.csv")
         assert isinstance(filtered, list)

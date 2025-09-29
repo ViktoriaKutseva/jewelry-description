@@ -1,0 +1,44 @@
+<div class="materials-selection">
+    <div class="materials-header">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3 class="materials-title">Available Materials</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="materials-search">
+                    <input type="text" id="materialSearch" class="form-control" placeholder="Search materials...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="materials-filters">
+        <div class="filter-buttons">
+            <button type="button" class="btn btn-outline-primary filter-btn active" data-filter="all">
+                All Materials
+            </button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="metals">
+                Metals
+            </button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="gems">
+                Gems
+            </button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="other">
+                Other
+            </button>
+        </div>
+    </div>
+
+    <div class="materials-list">
+        <div class="row" id="materialsList">
+            <!-- Materials will be populated here -->
+        </div>
+    </div>
+
+    <div class="selected-materials">
+        <h4 class="selected-title">Selected Materials</h4>
+        <div id="selectedMaterialsList" class="selected-list">
+            <p class="text-muted">No materials selected yet.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,269 @@
+/* Jewelry Calculator Web Application Styles */
+
+/* Import Bootstrap CSS */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+
+/* Custom Variables */
+:root {
+    --primary-gold: #D4AF37;
+    --secondary-silver: #C0C0C0;
+    --accent-purple: #8A2BE2;
+    --text-dark: #2C3E50;
+    --text-light: #ECF0F1;
+    --success-green: #27AE60;
+    --warning-orange: #F39C12;
+    --danger-red: #E74C3C;
+    --border-radius: 8px;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+/* Header Styles */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--primary-gold) !important;
+}
+
+.navbar-brand:hover {
+    color: #B8860B !important;
+}
+
+/* Main Content */
+.main-content {
+    min-height: calc(100vh - 76px);
+    background: var(--text-light);
+    border-radius: 20px 20px 0 0;
+    margin-top: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-gold), #B8860B);
+    color: white;
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+    border: none;
+    font-weight: 600;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: var(--border-radius);
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+.btn {
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-gold), #B8860B);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #B8860B, var(--primary-gold));
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-green), #229954);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #229954, var(--success-green));
+    transform: translateY(-1px);
+}
+
+/* Material Selection */
+.material-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.material-card.selected {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.material-quantity {
+    max-width: 80px;
+}
+
+/* Results Display */
+.result-highlight {
+    background: linear-gradient(135deg, var(--success-green), #229954);
+    color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.price-recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.price-card {
+    text-align: center;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 2px solid;
+}
+
+.price-card.minimum {
+    border-color: var(--success-green);
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.price-card.comfort {
+    border-color: var(--warning-orange);
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.price-card.premium {
+    border-color: var(--primary-gold);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Description Styles */
+.description-container {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid var(--primary-gold);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.description-text {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hashtag {
+    background: var(--accent-purple);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Loading States */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error States */
+.error-message {
+    background: var(--danger-red);
+    color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-top: 10px;
+        padding: 1rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .price-recommendations {
+        grid-template-columns: 1fr;
+    }
+
+    .hashtags {
+        justify-content: center;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* Utility Classes */
+.text-gold { color: var(--primary-gold); }
+.text-silver { color: var(--secondary-silver); }
+.bg-gold { background-color: var(--primary-gold); }
+.bg-silver { background-color: var(--secondary-silver); }
+
+.shadow-custom { box-shadow: var(--shadow); }
+.shadow-custom-hover { box-shadow: var(--shadow-hover); }
+
+.rounded-custom { border-radius: var(--border-radius); }

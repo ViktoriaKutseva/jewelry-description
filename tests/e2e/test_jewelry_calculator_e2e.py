@@ -116,7 +116,7 @@ class TestJewelryCalculatorE2E:
         repo = CsvMaterialRepository()
 
         # Load real materials from CSV
-        materials = repo.load_materials_from_csv("info.csv")
+        materials = repo.load_materials_from_csv()
         assert len(materials) > 0
 
         # Use first material for calculation

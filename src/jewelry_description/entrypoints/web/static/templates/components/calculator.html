@@ -1,0 +1,95 @@
+<div class="cost-calculator">
+    <form id="calculatorForm" class="calculator-form">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-section">
+                    <h4 class="form-section-title">Jewelry Specifications</h4>
+
+                    <div class="mb-3">
+                        <label for="jewelryType" class="form-label">Jewelry Type</label>
+                        <select class="form-select" id="jewelryType" name="jewelry_type" required>
+                            <option value="">Select jewelry type...</option>
+                            <option value="ring">Ring</option>
+                            <option value="necklace">Necklace</option>
+                            <option value="bracelet">Bracelet</option>
+                            <option value="earrings">Earrings</option>
+                            <option value="pendant">Pendant</option>
+                            <option value="brooch">Brooch</option>
+                            <option value="cufflinks">Cufflinks</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="weight" class="form-label">Total Weight (grams)</label>
+                        <input type="number" class="form-control" id="weight" name="weight" step="0.01" min="0" placeholder="0.00">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="laborCost" class="form-label">Labor Cost ($)</label>
+                        <input type="number" class="form-control" id="laborCost" name="labor_cost" step="0.01" min="0" placeholder="0.00">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="markup" class="form-label">Markup Percentage (%)</label>
+                        <input type="number" class="form-control" id="markup" name="markup" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-section">
+                    <h4 class="form-section-title">Additional Options</h4>
+
+                    <div class="mb-3">
+                        <label for="complexity" class="form-label">Complexity Level</label>
+                        <select class="form-select" id="complexity" name="complexity">
+                            <option value="simple">Simple</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="complex">Complex</option>
+                            <option value="very_complex">Very Complex</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quality" class="form-label">Quality Grade</label>
+                        <select class="form-select" id="quality" name="quality">
+                            <option value="standard">Standard</option>
+                            <option value="premium" selected>Premium</option>
+                            <option value="luxury">Luxury</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="includeGemstones" name="include_gemstones">
+                            <label class="form-check-label" for="includeGemstones">
+                                Include gemstone costs in calculation
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="includeFindings" name="include_findings">
+                            <label class="form-check-label" for="includeFindings">
+                                Include findings and settings costs
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-calculate" id="calculateBtn">
+                <i class="bi bi-calculator me-2"></i>
+                Calculate Cost
+            </button>
+            <button type="button" class="btn btn-secondary btn-reset" id="resetBtn">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>
+                Reset Form
+            </button>
+        </div>
+    </form>
+</div>
