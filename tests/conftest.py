@@ -7,7 +7,8 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from jewelry_description.config.settings import Settings
+from jewelry_description.config.settings import settings
+from jewelry_description.config.environments.testing import TestingSettings
 
 
 @pytest.fixture(scope="session")
@@ -19,13 +20,13 @@ def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
 
 
 @pytest.fixture(scope="session")
-def test_settings() -> Settings:
+def test_settings() -> TestingSettings:
     """Create test settings."""
-    settings = Settings()
-    settings.debug = True
-    settings.web_host = "localhost"
-    settings.web_port = 8000
-    return settings
+    test_settings = TestingSettings()
+    test_settings.debug = True
+    test_settings.web_host = "localhost"
+    test_settings.web_port = 8000
+    return test_settings
 
 
 @pytest.fixture

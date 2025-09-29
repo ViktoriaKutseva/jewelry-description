@@ -28,7 +28,7 @@ class ExtraCostItem(BaseModel):
 
 class CalculateCostRequest(BaseModel):
     """Request model for cost calculation."""
-    materials: List[MaterialItem] = Field(..., min_items=1)
+    materials: List[MaterialItem] = Field(..., min_length=1)
     jewelry_type: str = Field(..., min_length=1, max_length=50)
     weight: float = Field(..., gt=0)
     labor_cost: float = Field(..., ge=0)
@@ -74,7 +74,7 @@ class UpdateMaterialRequest(BaseModel):
 class GenerateDescriptionRequest(BaseModel):
     """Request model for description generation."""
     jewelry_type: str = Field(..., min_length=1, max_length=50)
-    materials: List[str] = Field(..., min_items=1, max_length=10)
+    materials: List[str] = Field(..., min_length=1, max_length=10)
 
     @field_validator("jewelry_type")
     @classmethod

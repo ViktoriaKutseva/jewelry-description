@@ -6,6 +6,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from typing import Any
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
@@ -56,7 +58,7 @@ templates_dir = os.path.join(os.path.dirname(__file__), "templates")
 templates = Jinja2Templates(directory=templates_dir)
 
 # Add url_for to template context
-def url_for(name: str, **path_params):
+def url_for(name: str, **path_params) -> str:
     if name == 'static':
         filename = path_params.get('filename', '')
         return f"/static/{filename}"
@@ -72,12 +74,12 @@ app.include_router(health_router)
 
 
 @app.get("/")
-async def root():
+async def root() -> dict[str, str]:
     """Root endpoint - redirect to main calculator page."""
     return {"message": "Jewelry Calculator API", "docs": "/docs", "health": "/health"}
 
 
 @app.get("/calculator")
-async def calculator_page(request: Request):
+async def calculator_page(request: Request) -> HTMLResponse:
     """Main calculator web page."""
     return templates.TemplateResponse("index.html", {"request": request})

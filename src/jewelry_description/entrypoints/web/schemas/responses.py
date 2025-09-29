@@ -2,7 +2,7 @@
 Pydantic response models for API endpoints.
 """
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 
 
@@ -69,7 +69,7 @@ class ValidationErrorDetail(BaseModel):
     msg: str = Field(..., description="Error message")
     type: str = Field(..., description="Error type")
     input: Optional[str] = Field(None, description="Input value that caused the error")
-    ctx: Optional[Dict] = Field(None, description="Error context")
+    ctx: Optional[Dict[str, Any]] = Field(None, description="Error context")
     url: Optional[str] = Field(None, description="Documentation URL")
 
 
